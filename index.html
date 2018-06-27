@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>UPreal Estate</title>
+    <meta charset="utf-8">
+    <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="styles/style.css">
+    <link rel="stylesheet" href="styles/jquery-ui.min.css">
+      <style>
+    fieldset {
+      border: 0;
+    }
+    label {
+      display: block;
+      margin: 30px 0 0 0;
+    }
+    .overflow {
+      height: 200px;
+    }
+  </style>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
+      <script>
+  $( function() {
+    $( "#Property" ).selectmenu();
+ 
+    $( "#Location" ).selectmenu();
+
+    $( "#PropertyStatus" ).selectmenu();
+
+    $( "#Beds" ).selectmenu();
+
+    $( "#Baths" ).selectmenu();
+
+    $( "#Area" ).selectmenu();
+
+    $( "#Language" ).selectmenu();
+
+    $( "#Currency" ).selectmenu();
+
+    function addCommas(nStr) {
+        var x, x1,x2;
+        nStr += '';
+        x = nStr.split('.');
+        x1 = x[0];
+        x2 = x.length > 1 ? '.' + x[1] : '';
+        var rgx = /(\d+)(\d{3})/;
+        while (rgx.test(x1)) {
+            x1 = x1.replace(rgx, '$1' + ',' + '$2');
+        }
+        return x1 + x2;
+    }
+    $("#slider-range").slider({
+        min: 0,
+        max: 1000000,
+        step: 100000,
+        values: [200000,500000],
+        range: true,
+        stop: function(event, ui) {
+            $("input#min-field").val("$" + addCommas(ui.values[0].toString()));
+            $("input#max-field").val("$" + addCommas(ui.values[1]));
+        },
+        slide: function(event, ui){
+            $("input#min-field").val("$" + addCommas(ui.values[0].toString()));
+            $("input#max-field").val("$" + addCommas(ui.values[1]));
+        }
+    });
+    $('.range-slider').each(function(){
+        $("input#min-field").val("$" + addCommas($("#slider-range").slider("values", 0)));
+        $("input#max-field").val("$" + addCommas($("#slider-range").slider("values", 1)));
+        $('.min-value').text($('#slider-range').slider('option', 'min'));
+        $('.max-value').text($('#slider-range').slider('option', 'max'));
+        
+
+        $("input#min-field").change(function(){
+            var value1=$("input#min-field").val().replace(/\D/g,'');
+            var value2=$("input#max-field").val().replace(/\D/g,'');
+
+            if(parseInt(value1, 10) > parseInt(value2, 10)){
+                value1 = value2;
+                $("input#min-field").val(value1);
+            }
+            $("#slider-range").slider("values",0,value1); 
+        });
+
+        
+        $("input#max-field").change(function(){
+            var value1=$("input#min-field").val().replace(/\D/g,'');
+            var value2=$("input#max-field").val().replace(/\D/g,'');
+            
+            if (value2 > 1000000) { value2 = 1000000; jQuery("input#max-field").val(1000000)}
+
+            if(parseInt(value1, 10) > parseInt(value2, 10)){
+                value2 = value1;
+                $("input#max-field").val(value2);
+            }
+            $("#slider-range").slider("values",1,value2);
+        });
+    });
+  } );
+  </script>   
+</head>
+<body class="test-page">
+    <div class="test-page__head-line">
+        <div class="head-line">
+                <div class="left-column">
+                    <div class="test-socials">
+                        <a href="#" class='test-link test-link_socials'><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class='test-link test-link_socials'><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#" class='test-link test-link_socials'><i class="fab fa-twitter"></i></a>
+                        <a href="#" class='test-link test-link_socials'><i class="fab fa-google-plus-g"></i></a>
+                        <a href="#" class='test-link test-link_socials'><i class="fab fa-vimeo-v"></i></a>
+                        <a href="#" class='test-link test-link_socials'><i class="fab fa-pinterest-p"></i></a>
+                    </div>
+                </div>
+                <div class="right-column">
+                    <div class="test-open">
+                        <i class="far fa-clock"></i> Open House: Mon - Fri - 9:00 - 18:00
+                    </div>
+                    <div class="test-language">
+                            <fieldset>
+                                <select name="Language" id="Language">
+                                  <option selected="selected">English</option>
+                                  <option>French</option>
+                                  <option>German</option>
+                                </select>
+                            </fieldset>
+                    </div>
+                    <div class="test-currency">
+                            <fieldset>
+                                <select name="Currency" id="Currency">
+                                  <option selected="selected">USD</option>
+                                  <option>EUR</option>
+                                  <option>UAH</option>
+                                </select>
+                            </fieldset>
+                    </div>
+                    <div class="test-login">
+                        <i class="fas fa-user"></i> <a href="#">Login / Register</a>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="test-page__line">
+        <div class="test-head">
+            <div class="one-fourth">
+                <div class="test-head__logo">
+                    <a href="#"><img class="test-logo__img" src="img/Logo.png"/></a>
+                </div>
+            </div>
+            <div class="one-fourth">
+                <div class="contact">
+                    <div class="icon"><i class="fas fa-phone fa-flip-horizontal"></i></div>
+                    <div class="text">
+                        <span class="bold-text">CALL US:</span>
+                        <span class="regular-text">435-234-9867</span>
+                    </div>
+                </div>
+            </div>
+            <div class="one-fourth">
+                <div class="contact">
+                    <div class="icon"><i class="fas fa-envelope"></i></div>
+                    <div class="text">
+                        <span class="bold-text">MAIL US:</span>
+                        <span class="regular-text"><a href="mailto:info@luxurylife.com">info@luxurylife.com</a></span>
+                    </div>
+                </div>
+            </div>
+            <div class="one-fourth">
+                <div class="contact">
+                    <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <div class="text">
+                        <span class="bold-text">VISIT US:</span>
+                        <span class="regular-text">Beverly Hills, CA 90210</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <div class="test-page__line grey_line">
+        <div class="menu">
+            <div class="left-column">
+                <div class="test-menu">
+                    <a href="#" class='test-link test-link_menu'>HOME</a>
+                    <a href="#" class='test-link test-link_menu'>PROPERTIES</a>
+                    <a href="#" class='test-link test-link_menu'>AGENTS</a>
+                    <a href="#" class='test-link test-link_menu'>BLOG</a>
+                    <a href="#" class='test-link test-link_menu'>IDX</a>
+                    <a href="#" class='test-link test-link_menu'>PAGES</a>
+                    <a href="#" class='test-link test-link_menu'>FEATURES</a>
+                </div>
+            </div>
+            <div class="right-column">
+                <div class="test-submit">
+                    <a href="#" class='test-link test-button_menu'>SUBMIT OBJECT</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="test-page__line first_block">
+        <div class="main-content">
+            <div class="top-row">
+                <div class="main-message">
+                    <div class="main-block">
+                    <span class="main-title">House of Your Dream</span>
+                    <span class="main-text">We Will Help to Find It</span>
+                    </div>
+                </div>
+            </div>
+            <div class="bottom-row">
+                <div class="main-filter">
+                    <div class="filter-title">
+                        <span class="title-block">Find Your Home</span>
+                    </div>
+                    <div class="filter-search">
+                        <div class="one-three">
+                            <fieldset>
+                                <label for="Property">Property Type</label>
+                                <select name="Property" id="Property">
+                                  <option selected="selected">Any</option>
+                                  <option>Type1</option>
+                                  <option>Type2</option>
+                                  <option>Type3</option>
+                                  <option>Type4</option>
+                                </select>
+                            </fieldset>
+                            <div class="bottom-row">
+                                <div class="range-slider">
+                                      <label for="amount">Price Range</label>
+                                          <div class="slider-fields">
+                                            <input type="text" id="min-field">
+                                            <span class="delimiter"></span>
+                                            <input type="text" id="max-field">
+                                          </div>
+                                     
+                                    <div id="slider-range"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="one-three">
+                            <fieldset>
+                                <label for="Location">Location</label>
+                                <select name="Location" id="Location">
+                                  <option selected="selected">Any</option>
+                                  <option>Type1</option>
+                                  <option>Type2</option>
+                                  <option>Type3</option>
+                                  <option>Type4</option>
+                                </select>
+                            </fieldset>
+                                <div class="bottom-row">
+                                    <div class="one-two">
+                                        <fieldset>
+                                            <label for="Beds">Beds</label>
+                                            <select name="Beds" id="Beds">
+                                              <option selected="selected">Any</option>
+                                              <option>Type1</option>
+                                              <option>Type2</option>
+                                              <option>Type3</option>
+                                              <option>Type4</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="one-two"> 
+                                        <fieldset>
+                                            <label for="Baths">Baths</label>
+                                            <select name="Baths" id="Baths">
+                                              <option selected="selected">Any</option>
+                                              <option>Type1</option>
+                                              <option>Type2</option>
+                                              <option>Type3</option>
+                                              <option>Type4</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>                   
+                                </div>
+                        </div>
+                        <div class="one-three">
+                            <fieldset>
+                                <label for="PropertyStatus">Property Status</label>
+                                <select name="PropertyStatus" id="PropertyStatus">
+                                  <option selected="selected">Any</option>
+                                  <option>Type1</option>
+                                  <option>Type2</option>
+                                  <option>Type3</option>
+                                  <option>Type4</option>
+                            </select>
+                            </fieldset>
+                                <div class="bottom-row">
+                                    <div class="one-two">
+                                        <fieldset>
+                                            <label for="Area">Area</label>
+                                            <select name="Area" id="Area">
+                                              <option selected="selected">Any</option>
+                                              <option>Type1</option>
+                                              <option>Type2</option>
+                                              <option>Type3</option>
+                                              <option>Type4</option>
+                                            </select>
+                                        </fieldset>
+                                    </div>
+                                    <div class="one-two"> 
+                                        <div class="search-button">
+                                            <a href="#" class='test-link test-button_search'>FIND NOW</a>
+                                        </div>
+                                    </div>                   
+                                </div>                  
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div class="test-page__footer">
+       
+    </div>
+</body>
+</html>
